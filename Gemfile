@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use simple_form
 gem 'simple_form'
+# Use Devise for authentication
+gem 'devise'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Bootstrap 4 for styling
