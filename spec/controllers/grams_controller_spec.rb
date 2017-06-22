@@ -38,7 +38,8 @@ RSpec.describe GramsController, type: :controller do
       gram = FactoryGirl.create(:gram)
       user = FactoryGirl.create(:user)
       sign_in user
-      patch :update, params: { id: gram.id, gram: { message: "Wahoo" } }
+      patch :update, params: { id: gram.id,
+        gram: { message: "Wahoo", picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to have_http_status(:forbidden)
     end
 
@@ -51,7 +52,8 @@ RSpec.describe GramsController, type: :controller do
     it "should allow users to successfully update grams" do
       gram = FactoryGirl.create(:gram, message: "Initial value")
       sign_in gram.user
-      patch :update, params: { id: gram.id, gram: { message: "Changed" } }
+      patch :update, params: { id: gram.id,
+        gram: { message: "Changed", picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to redirect_to root_path
       gram.reload
       expect(gram.message).to eq 'Changed'
@@ -60,14 +62,16 @@ RSpec.describe GramsController, type: :controller do
     it "should have a 404 error if the gram cannot be found" do
       user = FactoryGirl.create(:user)
       sign_in user
-      patch :update, params: { id: "YOLOSWAG", gram: { message: "Changed" } }
+      patch :update, params: { id: "YOLOSWAG",
+        gram: { message: "Changed", picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to have_http_status(:not_found)
     end
 
     it "should render the edit form with an http status of unprocessable entity" do
       gram = FactoryGirl.create(:gram, message: "Initial value")
       sign_in gram.user
-      patch :update, params: { id: gram.id, gram: { message: '' } }
+      patch :update, params: { id: gram.id,
+        gram: { message: '', picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to have_http_status(:unprocessable_entity)
       gram.reload
       expect(gram.message).to eq "Initial value"
@@ -149,7 +153,8 @@ RSpec.describe GramsController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
 
-      post :create, params: { gram: { message: "Hello World!" } }
+      post :create, params: {
+        gram: { message: "Hello World!", picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to redirect_to root_path
 
       gram = Gram.last
@@ -162,7 +167,8 @@ RSpec.describe GramsController, type: :controller do
       sign_in user
 
       gram_count = Gram.count
-      post :create, params: { gram: { message: '' } }
+      post :create, params: {
+        gram: { message: '', picture: fixture_file_upload("/picture.png", 'image/png') } }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(gram_count).to eq Gram.count
     end
