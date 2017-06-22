@@ -1,4 +1,10 @@
 <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+  <% if signed_in? %>
+    <div class="col-2 offset-10">
+      <br />
+      <%= button_to "Create a Gram", new_gram_path, class: 'btn btn-primary', method: :get %>
+    </div>
+  <% end %>
   <% @grams.each do |gram| %>
   <div class="card">
     <div class="handle"><%= gram.user.email %></div>
