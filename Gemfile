@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.3'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -41,6 +39,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form'
 # Use Devise for authentication
 gem 'devise'
+
+group :production do
+  # Use postgresql as the database for Active Record
+  gem 'pg', '~> 0.18'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # Use Bootstrap 4 for styling
